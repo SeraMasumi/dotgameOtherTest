@@ -83,7 +83,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(ADS_SCLK, GPIO.OUT)
 GPIO.setup(ADS_DIN, GPIO.OUT)
 GPIO.setup(ADS_DOUT, GPIO.IN)
-GPIO.setup(ADS_DRDY, GPIO.IN)
+# GPIO.setup(ADS_DRDY, GPIO.IN)
 GPIO.setup(ADS_CS, GPIO.OUT)
 GPIO.setup(ADS_REST , GPIO.OUT)
 
@@ -111,11 +111,14 @@ def ADS1256SPI(m):
 
 def ADS1256WREG(regaddr, databyte):
     ADS_CS = 0
-    while(ADS_DRDY):
-        ADS1256SPI(ADS1256_CMD_WREG | (regaddr & 0xF))
-        ADS1256SPI(0)
-        ADS1256SPI(databyte)
-        ADS_CS = 1
+
+    # while(ADS_DRDY):
+    #     ADS_CS = 0
+    
+    ADS1256SPI(ADS1256_CMD_WREG | (regaddr & 0xF))
+    ADS1256SPI(0)
+    ADS1256SPI(databyte)
+    ADS_CS = 1
 
 def ADS1256ReadData():
     i = 0
@@ -123,8 +126,9 @@ def ADS1256ReadData():
     r = 0
     ADS_CS = 0
 
-    while(ADS_DRDY):
-        i = 0
+    # while(ADS_DRDY):
+    #     i = 0
+
     ADS1256SPI(ADS1256_CMD_SYNC)
     ADS1256SPI(ADS1256_CMD_WAKEUP)           
     ADS1256SPI(ADS1256_CMD_RDATA)
