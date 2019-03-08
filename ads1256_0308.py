@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import sys
 
 ADS_SCLK = 0x17  
 ADS_DIN = 0x13 
@@ -151,14 +150,27 @@ def ADS1256_Init():
 
 def ADS_sum(road):
     results = 0
-
     ADS1256WREG(ADS1256_MUX,road)
     ADS1256SPI(ADS1256_CMD_SELFCAL)
-
     results = ADS1256ReadData()
- 
     return results
 
 if __name__ == "__main__":
-    road = sys.argv[0]
-    ADS_sum(road)
+    ADS1256_Init()
+    while True:
+        res1 = ADS_sum(ADS1256_MUXP_AIN0 | ADS1256_MUXN_AINCOM)
+        print("res1 = ", res1)
+        res2 = ADS_sum(ADS1256_MUXP_AIN1 | ADS1256_MUXN_AINCOM)
+        print("res2 = ", res2)
+        res3 = ADS_sum(ADS1256_MUXP_AIN2 | ADS1256_MUXN_AINCOM)
+        print("res3 = ", res3)
+        res4 = ADS_sum(ADS1256_MUXP_AIN3 | ADS1256_MUXN_AINCOM)
+        print("res4 = ", res4)
+        res5 = ADS_sum(ADS1256_MUXP_AIN4 | ADS1256_MUXN_AINCOM)
+        print("res5 = ", res5)
+        res6 = ADS_sum(ADS1256_MUXP_AIN5 | ADS1256_MUXN_AINCOM)
+        print("res6 = ", res6)
+        res7 = ADS_sum(ADS1256_MUXP_AIN6 | ADS1256_MUXN_AINCOM)
+        print("res7 = ", res7)
+        res8 = ADS_sum(ADS1256_MUXP_AIN7 | ADS1256_MUXN_AINCOM)
+        print("res8 = ", res8)
