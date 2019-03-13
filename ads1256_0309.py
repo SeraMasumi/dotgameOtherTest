@@ -132,7 +132,7 @@ def ADS1256RREG(regaddr):
     r = 0
     ADS_CS = 0
 
-    while(ADS_DRDY):
+    # while(ADS_DRDY):
 
     ADS1256SPI(ADS1256_CMD_RREG+(regaddr & 0xF))
     ADS1256SPI(0)
